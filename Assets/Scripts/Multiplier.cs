@@ -8,9 +8,15 @@ public class Multiplier : MonoBehaviour
 
     public bool isUsed;
 
+    void Awake()
+    {
+
+    }
+    
     void Start()
     {
         poolManager = PoolManager.instance;
+        
     }
 
     // Update is called once per frame
@@ -25,10 +31,10 @@ public class Multiplier : MonoBehaviour
         {
             return;
         }
-        if (other.CompareTag("Ball"))
+        else if (other.CompareTag("Ball"))
         {
             BallSpawner.instance.GenerateBalls(5);
-
+          
             //other.tag = "Used";
             //isUsed = true;
         }

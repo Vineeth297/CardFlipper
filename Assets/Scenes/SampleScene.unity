@@ -4144,7 +4144,7 @@ MonoBehaviour:
   ballPool: []
   ballRigidBodies: []
   prefab: {fileID: 1569195262620204420, guid: f0b30270342724f4e8d74351300c64bb, type: 3}
-  poolSize: 50
+  poolSize: 100
 --- !u!4 &908274012
 Transform:
   m_ObjectHideFlags: 0

@@ -12,9 +12,15 @@ public class PoolManager : MonoBehaviour
     public int poolSize = 50;
 
 
+    void Awake ()
+    {
+        
+        instance = this;
+    }
+
     void Start ()
     {
-        instance = this;
+        print("what the hell");
 
         ballPool = new List<GameObject>();
         ballRigidBodies = new List<Rigidbody>();
