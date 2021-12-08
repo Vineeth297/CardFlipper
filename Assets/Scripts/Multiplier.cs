@@ -29,7 +29,7 @@ public class Multiplier : MonoBehaviour
         {
             BallSpawner.instance.GenerateBalls(5);
 
-            other.tag = "Used";
+            //other.tag = "Used";
             //isUsed = true;
         }
     }

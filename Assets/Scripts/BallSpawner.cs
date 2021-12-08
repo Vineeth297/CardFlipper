@@ -8,7 +8,7 @@ public class BallSpawner : MonoBehaviour
     public static BallSpawner instance;
     PoolManager poolManager;
 
-    public int ballCount = 0;
+    public int ballCount;
 
     private Rigidbody rb;
 
@@ -16,6 +16,7 @@ public class BallSpawner : MonoBehaviour
     {
         instance = this;
         poolManager = PoolManager.instance;
+        ballCount = 0;
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class BallSpawner : MonoBehaviour
         if (other.CompareTag("Gate"))
         {
 
-            tag = "Used";
+            //tag = "Used";
         }
     }
 
@@ -42,7 +43,7 @@ public class BallSpawner : MonoBehaviour
             GameObject ballObj = poolManager.SpawnFromPool();
             ballObj.SetActive(true);
             ballObj.transform.position = transform.position;
-            //ballObj.GetComponent<Rigidbody>().AddForce(this.transform.forward * 100f, ForceMode.Acceleration);
+            ballObj.GetComponent<Rigidbody>().AddForce(this.transform.forward * 100f, ForceMode.Impulse);
             print("Yeah");
             ballCount++;
             
