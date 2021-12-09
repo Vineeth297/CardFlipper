@@ -11,6 +11,7 @@ public class PoolManager : MonoBehaviour
     public GameObject prefab;
     public int poolSize = 50;
 
+    public int ballCount = 0;
 
     void Awake ()
     {
@@ -46,7 +47,9 @@ public class PoolManager : MonoBehaviour
         {
             if (!ballPool[i].activeInHierarchy)
             {
+                ballCount++;
                 return ballPool[i];
+                
             }
         }
         return null;
