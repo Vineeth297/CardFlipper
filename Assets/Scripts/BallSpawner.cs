@@ -9,19 +9,21 @@ public class BallSpawner : MonoBehaviour
     PoolManager poolManager;
 
     public int ballCount;
-
+    
     private Rigidbody rb;
-
+    [HideInInspector]public GameObject ballObj;
+    public List<GameObject> spawnedBalls;
     void Awake ()
     {
+        instance = this;
+        //spawnedBalls = new List<GameObject>();
+        
 
     }
 
     void Start ()
     {
-        instance = this;
-        poolManager = PoolManager.instance;
-        
+        poolManager = PoolManager.instance;   
     }
 
     // Update is called once per frame
@@ -43,13 +45,15 @@ public class BallSpawner : MonoBehaviour
     {
         for (int i = 0; i < num; i++)
         {
-            print(poolManager.SpawnFromPool());
-            GameObject ballObj = poolManager.SpawnFromPool();
+            //print(poolManager.SpawnFromPool());
+            ballObj = poolManager.SpawnFromPool();
             ballObj.SetActive(true);
             ballObj.transform.position = transform.position;
+            spawnedBalls.Add(ballObj);
             ballObj.GetComponent<Rigidbody>().AddForce(this.transform.forward * 100f, ForceMode.Impulse);
             print("Yeah");
-            ballCount++;
+            ballCount++;  
+            
         }
     }
 }
