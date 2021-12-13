@@ -27,35 +27,35 @@ public class Multiplier : MonoBehaviour
         
     }
 
-    void OnTriggerEnter (Collider other)
-    {
-        if (isUsed)
-        {
-            return;
-        }
-        else if (other.CompareTag("Ball"))
-        {
-            BallSpawner.instance.GenerateBalls(5);
-            CheckForDuplicates();
+    // void OnTriggerEnter (Collider other)
+    // {
+    //     if (isUsed)
+    //     {
+    //         return;
+    //     }
+    //     else if (other.CompareTag("Ball"))
+    //     {
+    //         BallSpawner.instance.GenerateBalls(5);
+    //         CheckForDuplicates();
+    //
+    //         other.tag = "Used";
+    //         //isUsed = true;
+    //     }
+    // }
 
-            other.tag = "Used";
-            //isUsed = true;
-        }
-    }
-
-    public void CheckForDuplicates()
-    {
-        if (passedBalls == null)
-        {
-            return;
-        }
-        for (int i = 0; i < 15; i++)
-        {
-            if (!passedBalls.Contains(BallSpawner.instance.spawnedBalls[i]))
-            {
-                print("Entered the loop");
-                passedBalls.Add(BallSpawner.instance.spawnedBalls[i]);
-            }
-        }
-    }
+    // public void CheckForDuplicates()
+    // {
+    //     if (passedBalls == null)
+    //     {
+    //         return;
+    //     }
+    //     for (int i = 0; i < poolManager.poolSize; i++)
+    //     {
+    //         if (!passedBalls.Contains(BallSpawner.instance.spawnedBalls[i]))
+    //         {
+    //             print("Entered the loop");
+    //             passedBalls.Add(BallSpawner.instance.spawnedBalls[i]);
+    //         }
+    //     }
+    // }
 }

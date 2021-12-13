@@ -4494,7 +4494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353aad8b17d90284caf18fa1304f5948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplierGateList:
+  GateNumber: 
+  totalGates:
   - {fileID: 576469567}
   - {fileID: 40727105}
 --- !u!4 &944712035

@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class MultiplierTracker : MonoBehaviour
 {
+    public static MultiplierTracker instance;
 
-    public List<GameObject> multiplierGateList;
+    public List<int> GateNumber = new List<int>();
+
+    public List<GameObject> totalGates = new List<GameObject>();
     
-    void Start()
+    void Awake()
     {
-        multiplierGateList = new List<GameObject>();
-    }
+        instance = this;
+        for (int i = 0; i < totalGates.Count; i++)
+        {
+            GateNumber.Add(i + 1 );
+            totalGates[i].tag = GateNumber[i].ToString();
+        }
+    }    
+    
 
     // Update is called once per frame
     void Update()
     {
         
     }
+    
+    
+    
 }

@@ -6,13 +6,17 @@ public class BallSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
     public static BallSpawner instance;
+    
     PoolManager poolManager;
 
     public int ballCount;
     
     private Rigidbody rb;
     [HideInInspector]public GameObject ballObj;
+    
     public List<GameObject> spawnedBalls;
+    public List<string> passedGateTag = new List<string>();
+    
     void Awake ()
     {
         instance = this;
@@ -34,11 +38,31 @@ public class BallSpawner : MonoBehaviour
 
     void OnTriggerEnter (Collider other)
     {
-        if (other.CompareTag("Gate"))
+        // if (other.CompareTag("Gate"))
+        // {
+        //     ballCount++;
+        //     //tag = "Used";
+        // }
+
+        foreach (var VARIABLE in MultiplierTracker.instance.GateNumber)
         {
-            ballCount++;
-            //tag = "Used";
+            
+            if (passedGateTag == null)
+            {
+                return;
+            }
+            if (other.CompareTag(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
+            {
+                if (!passedGateTag.Contains(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
+                {
+                    passedGateTag.Add((VARIABLE).ToString());
+                    this.tag = (VARIABLE).ToString();    
+                }
+                
+            }
         }
+
+        
     }
 
     public void GenerateBalls (int num)
