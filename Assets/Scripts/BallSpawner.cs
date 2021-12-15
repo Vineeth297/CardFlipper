@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BallSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
     public static BallSpawner instance;
     
     PoolManager poolManager;
@@ -12,6 +11,7 @@ public class BallSpawner : MonoBehaviour
     public int ballCount;
     
     private Rigidbody rb;
+    
     [HideInInspector]public GameObject ballObj;
     
     public List<GameObject> spawnedBalls;
@@ -20,64 +20,71 @@ public class BallSpawner : MonoBehaviour
     void Awake ()
     {
         instance = this;
-        //spawnedBalls = new List<GameObject>();
-        
-
     }
-
+    
     void Start ()
     {
         poolManager = PoolManager.instance;   
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-
-    }
-
+    
     void OnTriggerEnter (Collider other)
     {
-        // if (other.CompareTag("Gate"))
-        // {
-        //     ballCount++;
-        //     //tag = "Used";
-        // }
-
         foreach (var VARIABLE in MultiplierTracker.instance.GateNumber)
         {
-            
             if (passedGateTag == null)
             {
                 return;
             }
-            if (other.CompareTag(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
+            
+            if (!passedGateTag.Contains(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
             {
-                if (!passedGateTag.Contains(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
+                if (!this.CompareTag(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
+                {
+                    if (other.CompareTag(MultiplierTracker.instance.GateNumber[VARIABLE - 1].ToString()))
+                    {
+                        passedGateTag.Add((VARIABLE).ToString());
+                        this.tag = (VARIABLE).ToString();
+                        
+                        GenerateBalls(1, this.tag);
+                    }
+                }
+                else
                 {
                     passedGateTag.Add((VARIABLE).ToString());
-                    this.tag = (VARIABLE).ToString();    
                 }
-                
             }
-        }
-
-        
+            else
+            {
+                print("already has " + VARIABLE );
+            }
+        }  
     }
 
-    public void GenerateBalls (int num)
+    public void GenerateBalls (int num,string parentTag)
     {
+        if (passedGateTag == null)
+        {
+            return;
+        }
+        
         for (int i = 0; i < num; i++)
         {
-            //print(poolManager.SpawnFromPool());
             ballObj = poolManager.SpawnFromPool();
             ballObj.SetActive(true);
             ballObj.transform.position = transform.position;
+
             spawnedBalls.Add(ballObj);
-            ballObj.GetComponent<Rigidbody>().AddForce(this.transform.forward * 100f, ForceMode.Impulse);
-            print("Yeah");
-            ballCount++;  
+            //ballObj.tag = parentTag;
+            spawnedBalls[i].tag = parentTag;
             
+            if (!ballObj.GetComponent<BallSpawner>().passedGateTag.Contains(parentTag))
+            {
+                ballObj.GetComponent<BallSpawner>().passedGateTag.Add(parentTag);
+            }
+            
+            ballObj.GetComponent<Rigidbody>().AddForce(this.transform.forward * 100f, ForceMode.Impulse);
+           
+            ballCount++;
         }
     }
 }
